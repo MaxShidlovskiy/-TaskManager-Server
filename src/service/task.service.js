@@ -7,7 +7,6 @@ async function getAllTask() {
 
 async function createTask(task, user_id) {
     const data = await createTaskDB(task, user_id);
-
     return data;
 };
 

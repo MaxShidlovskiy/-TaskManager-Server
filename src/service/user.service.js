@@ -10,4 +10,4 @@ async function createUser(name, surname, email, pwd) {
 }
 
 
-module.exports = { getAllUser}
+module.exports = { getAllUser, createUser }

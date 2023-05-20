@@ -7,10 +7,10 @@ async function getAllTaskDB() {
     return res;
 }
 
-async function createTaskDB(name, surname, email, pwd) {
+async function createTaskDB() {
     const client = await pool.connect();
-    const sql = 'INSERT INTO users(name, surname, email, pwd) values ($1, $2, $3, $4) returning *';
-    const result = (await client.query(sql, [name, surname, email, pwd])).rows;
+    const sql = 'INSERT INTO users(task,user_id) values ($1, $2) returning *';
+    const result = (await client.query(sql, [task, user_id])).rows;
     return result;
 }
 
