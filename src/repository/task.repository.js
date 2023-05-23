@@ -1,27 +1,27 @@
 const { pool } = require('../db');
 
-async function getAllTaskDb() {
+async function getAllTaskDB() {
     const client = await pool.connect();
     const sql = 'SELECT * FROM tasks';
     const res = (await client.query(sql)).rows;
     return res;
 };
 
-async function getByIdTaskDb(id) {
+async function getByIdTaskDB(id) {
     const client = await pool.connect();
     const sql = 'SELECT * FROM tasks WHERE id = $1';
     const res = (await client.query(sql, [id])).rows;
     return res;
 };
 
-async function createTaskDb(task, user_id) {
+async function createTaskDB(task, user_id) {
     const client = await pool.connect();
     const sql = 'INSERT INTO tasks (task, user_id) values ($1, $2) returning *';
     const res = (await client.query(sql, [task, user_id])).rows;
     return res;
 };
 
-async function updateTaskDb(id, task, user_id) {
+async function updateTaskDB(id, task, user_id) {
     const client = await pool.connect();
     const sql = 'UPDATE tasks SET task = $1, user_id = $2 where id =$3 returning *';
     const res = (await client.query(sql, [task, user_id, id])).rows;
