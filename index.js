@@ -1,3 +1,5 @@
-const app = require(`./src/app`);
+require('dotenv').config();
+const app = require('./src/app.js');
 
-app.listen(3000, () => console.log(`server is starting`));
+const port = process.env.PORT;
+app.listen(port, () => console.log('server is run'));
