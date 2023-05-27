@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { buildResponse } = require('../helper/buildResponse');
-const { getAllTask, getByIdTask, createTask, updateTask, deleteTask, patchTask } = require('../service/task.service')
+const { getAllTask, getByIdTask, createTask, updateTask, deleteTask, patchTask } = require('../service/task.service');
 const { isValidTaskId, isValidTaskBody } = require('../helper/validation');
 
 const route = express.Router();

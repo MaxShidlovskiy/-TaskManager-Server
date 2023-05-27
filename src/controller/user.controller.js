@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUser, getUserById, createUser,updateUser, deleteUser } = require('../service/user.service');
+const { getAllUser, getUserById, createUser, updateUser, deleteUser, patchUser } = require('../service/user.service');
 const { buildResponse } = require('../helper/buildResponse');
 const { isValidUserId, isValidUserBody } = require(`../helper/validation`);
 
@@ -14,7 +14,7 @@ route.get('/', async (req, res) => {
   }
 });
 
-route.get('/:id',isValidUserId, async (req, res) => {
+route.get('/:id', isValidUserId, async (req, res) => {
   try {
     const { id } = req.params;
     const data = await getUserById(id);
@@ -24,7 +24,7 @@ route.get('/:id',isValidUserId, async (req, res) => {
   }
 });
 
-route.post('/',isValidUserBody, isValidUserBody, async (req, res) => {
+route.post('/', isValidUserBody, async (req, res) => {
   try {
     const { name, surname, email, pwd } = req.body;
     const data = await createUser(name, surname, email, pwd);
@@ -34,7 +34,7 @@ route.post('/',isValidUserBody, isValidUserBody, async (req, res) => {
   }
 });
 
-route.put('/:id', isValidUserId, async (req, res) => {
+route.put('/:id', isValidUserId, isValidUserBody, async (req, res) => {
   try {
     const { id } = req.params;
     const { name, surname, email, pwd } = req.body;
@@ -45,7 +45,7 @@ route.put('/:id', isValidUserId, async (req, res) => {
   }
 });
 
-route.delete('/:id',isValidUserId,  async (req, res) => {
+route.delete('/:id', isValidUserId, async (req, res) => {
   try {
     const { id } = req.params;
     const data = await deleteUser(id);
@@ -55,4 +55,14 @@ route.delete('/:id',isValidUserId,  async (req, res) => {
   }
 });
 
+route.patch(`/:id`, isValidUserId, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const clientData = req.body;
+    const data = await patchUser(id, clientData);
+    buildResponse(res, 200, data);
+  } catch (error) {
+    buildResponse(res, 404, error.message);
+  }
+});
 module.exports = route;
