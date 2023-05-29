@@ -23,4 +23,4 @@ route.post('/auth', async(req,res)=>{
   }
 });
 
-module.exports = route
+module.exports = route;
